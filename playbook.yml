@@ -1,0 +1,22 @@
+---
+- hosts: windows
+  #gather_facts: no
+  become: yes
+  become_method: runas
+  vars:
+    ansible_become_user: Administrator
+    ansible_become_pass: "Saxophone#1"
+
+  tasks:
+
+  - name: Check dcuttriss user account
+    ansible.windows.win_powershell:
+      script: |
+        cd C:\Support\User-Checks
+        .\dcuttriss.ps1
+
+  - name: Debug
+    ansible.builtin.debug:
+      msg: "{{ansible.windows.win_powerhsell.outpu}}"
+
+      # C:\Support\User-Checks   
